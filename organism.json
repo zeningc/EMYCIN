@@ -1,0 +1,329 @@
+{
+  "contexts": [
+    {
+      "name": "patient",
+      "initial_data": [
+        "name",
+        "sex",
+        "age"
+      ]
+    },
+    {
+      "name": "culture",
+      "initial_data": [
+        "site",
+        "days-old"
+      ]
+    },
+    {
+      "name": "organism",
+      "goals": [
+        "identity"
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "ctx_name": "patient",
+      "param_type": "str",
+      "ask_first": true
+    },
+    {
+      "name": "sex",
+      "ctx_name": "patient",
+      "allowed_values": [
+        "M",
+        "F"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "age",
+      "ctx_name": "patient",
+      "param_type": "int",
+      "ask_first": true
+    },
+    {
+      "name": "burn",
+      "ctx_name": "patient",
+      "allowed_values": [
+        "no",
+        "mild",
+        "serious"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "compromised-host",
+      "ctx_name": "patient",
+      "allowed_values": [
+        "True",
+        "False"
+      ],
+      "param_type": "str"
+    },
+    {
+      "name": "site",
+      "ctx_name": "culture",
+      "allowed_values": [
+        "blood"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "days-old",
+      "ctx_name": "culture",
+      "param_type": "int",
+      "ask_first": true
+    },
+    {
+      "name": "identity",
+      "ctx_name": "organism",
+      "allowed_values": [
+        "pseudomonas",
+        "klebsiella",
+        "enterobacteriaceae",
+        "staphylococcus",
+        "bacteroides",
+        "streptococcus"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "gram",
+      "ctx_name": "organism",
+      "allowed_values": [
+        "acid-fast",
+        "pos",
+        "neg"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "morphology",
+      "ctx_name": "organism",
+      "allowed_values": [
+        "rod",
+        "coccus"
+      ]
+    },
+    {
+      "name": "aerobicity",
+      "ctx_name": "organism",
+      "allowed_values": [
+        "aerobic",
+        "anaerobic"
+      ]
+    },
+    {
+      "name": "growth-conformation",
+      "ctx_name": "organism",
+      "allowed_values": [
+        "chains",
+        "pairs",
+        "clumps"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "conditions": [
+        [
+          "site",
+          "culture",
+          "=",
+          "blood"
+        ],
+        [
+          "gram",
+          "organism",
+          "=",
+          "neg"
+        ],
+        [
+          "morphology",
+          "organism",
+          "=",
+          "rod"
+        ],
+        [
+          "burn",
+          "patient",
+          "=",
+          "serious"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "organism",
+          "=",
+          "pseudomonas"
+        ]
+      ],
+      "cf": 0.4
+    },
+    {
+      "conditions": [
+        [
+          "gram",
+          "organism",
+          "=",
+          "pos"
+        ],
+        [
+          "morphology",
+          "organism",
+          "=",
+          "coccus"
+        ],
+        [
+          "growth-conformation",
+          "organism",
+          "=",
+          "clumps"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "organism",
+          "=",
+          "staphylococcus"
+        ]
+      ],
+      "cf": 0.7
+    },
+    {
+      "conditions": [
+        [
+          "site",
+          "culture",
+          "=",
+          "blood"
+        ],
+        [
+          "gram",
+          "organism",
+          "=",
+          "neg"
+        ],
+        [
+          "morphology",
+          "organism",
+          "=",
+          "rod"
+        ],
+        [
+          "aerobicity",
+          "organism",
+          "=",
+          "anaerobic"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "organism",
+          "=",
+          "bacteroides"
+        ]
+      ],
+      "cf": 0.9
+    },
+    {
+      "conditions": [
+        [
+          "gram",
+          "organism",
+          "=",
+          "neg"
+        ],
+        [
+          "morphology",
+          "organism",
+          "=",
+          "rod"
+        ],
+        [
+          "compromised-host",
+          "patient",
+          "=",
+          "true"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "organism",
+          "=",
+          "pseudomonas"
+        ]
+      ],
+      "cf": 0.6
+    },
+    {
+      "conditions": [
+        [
+          "gram",
+          "organism",
+          "=",
+          "neg"
+        ],
+        [
+          "morphology",
+          "organism",
+          "=",
+          "rod"
+        ],
+        [
+          "aerobicity",
+          "organism",
+          "=",
+          "aerobic"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "organism",
+          "=",
+          "enterobacteriaceae"
+        ]
+      ],
+      "cf": 0.8
+    },
+    {
+      "conditions": [
+        [
+          "gram",
+          "organism",
+          "=",
+          "pos"
+        ],
+        [
+          "morphology",
+          "organism",
+          "=",
+          "coccus"
+        ],
+        [
+          "growth-conformation",
+          "organism",
+          "=",
+          "chains"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "organism",
+          "=",
+          "streptococcus"
+        ]
+      ],
+      "cf": 0.7
+    }
+  ]
+}

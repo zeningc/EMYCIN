@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EMYCIN.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="emycin">EMYCIN</h1>
+<h2 id="overview">Overview</h2>
+<p>This project is a python-version EMYCIN expert system.
+EMYCIN is an early expert system developed in the 1970s for the diagnosis and treatment of bacterial infections.
+It was one of the first successful applications of artificial intelligence (AI) in the medical field. EMYCIN was
+designed to assist physicians in diagnosing bacterial infections and prescribing appropriate antibiotic treatments.
+It used a set of rules based on expert knowledge to analyze patient data and make recommendations. EMYCIN paved the
+way for the development of more advanced medical expert systems and helped demonstrate the potential of AI in healthcare.<br>
+The initial implementation of this project was based on EMYCIN, which was originally developed using Common Lisp.
+However, in order to make the code more accessible to a wider audience, the project has been rewritten in Python.
+Additionally, the code has been improved to allow for rules to be read from JSON files. This update was made in response
+to the growing popularity of JSON as a configuration language.</p>
+<h2 id="inference">Inference</h2>
+<p>EMYCIN relies on three key concepts to diagnose and treat bacterial infections:</p>
+<ol>
+<li>
+<p><strong>Context:</strong> This refers to a set of parameters that are relevant to a particular situation or problem. In the context of EMYCIN, this might include a patient's symptoms, medical history, and test results.</p>
+</li>
+<li>
+<p><strong>Parameter:</strong> This is a piece of data or information that is relevant to a particular problem or domain. In the context of EMYCIN, parameters might include symptoms like fever, or test results like blood cultures.</p>
+</li>
+<li>
+<p><strong>Rule:</strong> This is a statement that describes how parameters in a particular context are related. For example, a rule in EMYCIN might state that if a patient has a fever above a certain temperature and a certain type of bacteria is present in their blood culture, then they should be treated with a specific antibiotic. These rules are based on expert knowledge about how to diagnose and treat bacterial infections.</p>
+</li>
+</ol>
+<p>We will dig deep into the code later. To conclude, a context contains two types of parameters: initial and goal. The initial
+parameters are the basic parameters that serve as the background knowledge to the problem while the goal parameters are
+our target, which means that our goal is to infer the value of goal parameters.</p>
+<p>To calculate the different possibility of different result, a concept called certainty factor(CF) is introduced:<br>
+Certainty factor is a method used in expert systems to quantify the degree of certainty or uncertainty associated with a particular conclusion or rule. It allows an expert system to make more informed decisions by taking into account the strength of evidence supporting a particular conclusion.</p>
+<p>In certainty factor, each rule is assigned a numerical value between -1 and 1, which represents the degree of certainty or uncertainty associated with the rule. A value of 1 indicates complete certainty, while a value of -1 indicates complete uncertainty. A value of 0 indicates that the rule is neutral, meaning that it doesn't provide any evidence for or against the conclusion.</p>
+<p>When multiple rules are used to reach a conclusion, their certainty factors are combined using a formula that takes into account both their strengths and weaknesses. The resulting certainty factor for the conclusion represents the degree of confidence that the expert system has in its recommendation.</p>
+<p>Certainty factor is particularly useful in situations where there is uncertainty or ambiguity in the available data. By allowing for a more nuanced assessment of the evidence, it helps to reduce the risk of incorrect or inappropriate recommendations.</p>
+<h2 id="code-breakdown">Code Breakdown</h2>
+<h3 id="modelspy">models.py</h3>
+<h4 id="imports">Imports</h4>
+<ul>
+<li><code>from typing import Any</code>: Import <code>Any</code> from the <code>typing</code> module, which is used for typing annotations.</li>
+</ul>
+<h4 id="cf-class">CF Class</h4>
+<ul>
+<li>This class contains constant values and calculation methods related to the certainty factor (CF).</li>
+</ul>
+<h4 id="context-class">Context Class</h4>
+<ul>
+<li>This class represents the context and contains a dictionary of all created contexts.</li>
+<li>It has a <code>__str__</code> method to return a string representation of the object.</li>
+<li>There is a static method <code>get_context_by_name</code> that returns a context object by name.</li>
+</ul>
+<h4 id="parameter-class">Parameter Class</h4>
+<ul>
+<li>This class represents a parameter and contains a dictionary of all created parameters.</li>
+<li>It has a <code>__hash__</code> and <code>__str__</code> method to return the hash and string representation of the object.</li>
+<li>There are static methods <code>get_parameter_by_name</code> and <code>get_value</code> for retrieving parameter objects and their values.</li>
+</ul>
+<h4 id="statement-class">Statement Class</h4>
+<ul>
+<li>This class represents a statement, which can be a condition or conclusion.</li>
+<li>It has a <code>meet</code> method to check if a statement meets a certain condition.</li>
+<li>There is a <code>__str__</code> method to return a string representation of the object.</li>
+</ul>
+<h4 id="store-class">Store Class</h4>
+<ul>
+<li>This class represents a global key/value store.</li>
+<li>It has static methods <code>get_vals</code> and <code>update_cf</code> for getting values and updating the certainty factor.</li>
+</ul>
+<h4 id="rule-class">Rule Class</h4>
+<ul>
+<li>This class represents a rule, containing conditions, conclusions, and an associated certainty factor.</li>
+<li>It has a <code>__str__</code> method to return a string representation of the object.</li>
+<li>There are methods <code>applicable</code>, <code>apply</code>, <code>use_rules</code>, and <code>eval_condition</code> for rule evaluation and application.</li>
+</ul>
+<h4 id="executor-class">Executor Class</h4>
+<ul>
+<li>This class contains several local variables used during runtime and helper methods for execution.</li>
+<li>It has methods <code>ask</code>, <code>explain</code>, <code>set_current_rule</code>, <code>find_out</code>, <code>execute</code>, and <code>output_result</code> for user interaction, execution, and output of results.</li>
+</ul>
+<h4 id="execution-flow">Execution Flow</h4>
+<ol>
+<li>Define instances of <code>Context</code>, <code>Parameter</code>, and <code>Rule</code>.</li>
+<li>Call <code>Executor.execute()</code> with a list of context names to execute the program.</li>
+<li>Results are printed to the console and returned as a dictionary.</li>
+</ol>
+<h3 id="runpy">run.py</h3>
+<p>This code is a configuration script for the EMYCIN (Empty MYcin) expert system shell, which is a framework for creating rule-based expert systems. The script reads a JSON file containing the expert system's structure, and then creates Context, Parameter, and Rule objects based on the information in the file.</p>
+<p>Here's a breakdown of the code:</p>
+<ol>
+<li>
+<p><strong>Import required libraries:</strong></p>
+<ul>
+<li><code>json</code>: for parsing and loading JSON data.</li>
+<li><code>argparse</code>: for parsing command-line arguments.</li>
+<li><code>os.path</code>: for checking file existence.</li>
+<li><code>models</code>: import custom classes for Context, Parameter, Rule, and Executor.</li>
+</ul>
+</li>
+<li>
+<p><code>create_objects(json_data)</code>: This function initializes the expert system by creating Context, Parameter, and Rule objects using the data from the JSON file.</p>
+</li>
+<li>
+<p><code>get_all_context(json_str)</code>: This function extracts all the context names from the JSON string and returns a list of them.</p>
+</li>
+<li>
+<p><code>config_args(json_dict, arg_tuple)</code>: This function takes a dictionary from the JSON file and a tuple of keys, filters the dictionary to only include the keys in the tuple, and returns a new dictionary.</p>
+</li>
+<li>
+<p><code>create_parameter(parameters)</code>: This function creates Parameter objects using the provided list of dictionaries that represent parameters.</p>
+</li>
+<li>
+<p><code>create_context(contexts)</code>: This function creates Context objects using the provided list of dictionaries that represent contexts.</p>
+</li>
+<li>
+<p><code>create_rule(rules)</code>: This function creates Rule objects using the provided list of dictionaries that represent rules.</p>
+</li>
+<li>
+<p><code>create_parser()</code>: This function sets up an ArgumentParser object for parsing command-line arguments. It specifies a single argument, &quot;--config&quot;, which represents the path to the JSON file.</p>
+</li>
+<li>
+<p><strong>Main section:</strong></p>
+<ul>
+<li>Calls <code>create_parser()</code> to set up an ArgumentParser object.</li>
+<li>Parses command-line arguments using <code>parser.parse_args()</code>.</li>
+<li>Checks if the configuration file exists, and exits the program if it does not.</li>
+<li>Reads the contents of the JSON file and stores it in a string.</li>
+<li>Calls <code>create_objects(json_str)</code> to create the expert system objects.</li>
+<li>Calls <code>Executor.execute(get_all_context(json_str))</code> to execute the expert system.</li>
+</ul>
+</li>
+</ol>
+<h3 id="organismjson">organism.json</h3>
+<p>Rule definition file:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"contexts"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"patient"</span>,
+      <span class="hljs-attr">"initial_data"</span>: [
+        <span class="hljs-string">"name"</span>,
+        <span class="hljs-string">"sex"</span>,
+        <span class="hljs-string">"age"</span>
+      ]
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"culture"</span>,
+      <span class="hljs-attr">"initial_data"</span>: [
+        <span class="hljs-string">"site"</span>,
+        <span class="hljs-string">"days-old"</span>
+      ]
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"organism"</span>,
+      <span class="hljs-attr">"goals"</span>: [
+        <span class="hljs-string">"identity"</span>
+      ]
+    }
+  ],
+  <span class="hljs-attr">"parameters"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"name"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"patient"</span>,
+      <span class="hljs-attr">"param_type"</span>: <span class="hljs-string">"str"</span>,
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"sex"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"patient"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"M"</span>,
+        <span class="hljs-string">"F"</span>
+      ],
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"age"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"patient"</span>,
+      <span class="hljs-attr">"param_type"</span>: <span class="hljs-string">"int"</span>,
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"burn"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"patient"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"no"</span>,
+        <span class="hljs-string">"mild"</span>,
+        <span class="hljs-string">"serious"</span>
+      ],
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"compromised-host"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"patient"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"True"</span>,
+        <span class="hljs-string">"False"</span>
+      ],
+      <span class="hljs-attr">"param_type"</span>: <span class="hljs-string">"str"</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"site"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"culture"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"blood"</span>
+      ],
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"days-old"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"culture"</span>,
+      <span class="hljs-attr">"param_type"</span>: <span class="hljs-string">"int"</span>,
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"identity"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"organism"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"pseudomonas"</span>,
+        <span class="hljs-string">"klebsiella"</span>,
+        <span class="hljs-string">"enterobacteriaceae"</span>,
+        <span class="hljs-string">"staphylococcus"</span>,
+        <span class="hljs-string">"bacteroides"</span>,
+        <span class="hljs-string">"streptococcus"</span>
+      ],
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"gram"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"organism"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"acid-fast"</span>,
+        <span class="hljs-string">"pos"</span>,
+        <span class="hljs-string">"neg"</span>
+      ],
+      <span class="hljs-attr">"ask_first"</span>: <span class="hljs-literal">true</span>
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"morphology"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"organism"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"rod"</span>,
+        <span class="hljs-string">"coccus"</span>
+      ]
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"aerobicity"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"organism"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"aerobic"</span>,
+        <span class="hljs-string">"anaerobic"</span>
+      ]
+    },
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"growth-conformation"</span>,
+      <span class="hljs-attr">"ctx_name"</span>: <span class="hljs-string">"organism"</span>,
+      <span class="hljs-attr">"allowed_values"</span>: [
+        <span class="hljs-string">"chains"</span>,
+        <span class="hljs-string">"pairs"</span>,
+        <span class="hljs-string">"clumps"</span>
+      ]
+    }
+  ],
+  <span class="hljs-attr">"rules"</span>: [
+    {
+      <span class="hljs-attr">"conditions"</span>: [
+        [
+          <span class="hljs-string">"site"</span>,
+          <span class="hljs-string">"culture"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"blood"</span>
+        ],
+        [
+          <span class="hljs-string">"gram"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"neg"</span>
+        ],
+        [
+          <span class="hljs-string">"morphology"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"rod"</span>
+        ],
+        [
+          <span class="hljs-string">"burn"</span>,
+          <span class="hljs-string">"patient"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"serious"</span>
+        ]
+      ],
+      <span class="hljs-attr">"conclusions"</span>: [
+        [
+          <span class="hljs-string">"identity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"pseudomonas"</span>
+        ]
+      ],
+      <span class="hljs-attr">"cf"</span>: <span class="hljs-number">0.4</span>
+    },
+    {
+      <span class="hljs-attr">"conditions"</span>: [
+        [
+          <span class="hljs-string">"gram"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"pos"</span>
+        ],
+        [
+          <span class="hljs-string">"morphology"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"coccus"</span>
+        ],
+        [
+          <span class="hljs-string">"growth-conformation"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"clumps"</span>
+        ]
+      ],
+      <span class="hljs-attr">"conclusions"</span>: [
+        [
+          <span class="hljs-string">"identity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"staphylococcus"</span>
+        ]
+      ],
+      <span class="hljs-attr">"cf"</span>: <span class="hljs-number">0.7</span>
+    },
+    {
+      <span class="hljs-attr">"conditions"</span>: [
+        [
+          <span class="hljs-string">"site"</span>,
+          <span class="hljs-string">"culture"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"blood"</span>
+        ],
+        [
+          <span class="hljs-string">"gram"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"neg"</span>
+        ],
+        [
+          <span class="hljs-string">"morphology"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"rod"</span>
+        ],
+        [
+          <span class="hljs-string">"aerobicity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"anaerobic"</span>
+        ]
+      ],
+      <span class="hljs-attr">"conclusions"</span>: [
+        [
+          <span class="hljs-string">"identity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"bacteroides"</span>
+        ]
+      ],
+      <span class="hljs-attr">"cf"</span>: <span class="hljs-number">0.9</span>
+    },
+    {
+      <span class="hljs-attr">"conditions"</span>: [
+        [
+          <span class="hljs-string">"gram"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"neg"</span>
+        ],
+        [
+          <span class="hljs-string">"morphology"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"rod"</span>
+        ],
+        [
+          <span class="hljs-string">"compromised-host"</span>,
+          <span class="hljs-string">"patient"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"true"</span>
+        ]
+      ],
+      <span class="hljs-attr">"conclusions"</span>: [
+        [
+          <span class="hljs-string">"identity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"pseudomonas"</span>
+        ]
+      ],
+      <span class="hljs-attr">"cf"</span>: <span class="hljs-number">0.6</span>
+    },
+    {
+      <span class="hljs-attr">"conditions"</span>: [
+        [
+          <span class="hljs-string">"gram"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"neg"</span>
+        ],
+        [
+          <span class="hljs-string">"morphology"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"rod"</span>
+        ],
+        [
+          <span class="hljs-string">"aerobicity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"aerobic"</span>
+        ]
+      ],
+      <span class="hljs-attr">"conclusions"</span>: [
+        [
+          <span class="hljs-string">"identity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"enterobacteriaceae"</span>
+        ]
+      ],
+      <span class="hljs-attr">"cf"</span>: <span class="hljs-number">0.8</span>
+    },
+    {
+      <span class="hljs-attr">"conditions"</span>: [
+        [
+          <span class="hljs-string">"gram"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"pos"</span>
+        ],
+        [
+          <span class="hljs-string">"morphology"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"coccus"</span>
+        ],
+        [
+          <span class="hljs-string">"growth-conformation"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"chains"</span>
+        ]
+      ],
+      <span class="hljs-attr">"conclusions"</span>: [
+        [
+          <span class="hljs-string">"identity"</span>,
+          <span class="hljs-string">"organism"</span>,
+          <span class="hljs-string">"="</span>,
+          <span class="hljs-string">"streptococcus"</span>
+        ]
+      ],
+      <span class="hljs-attr">"cf"</span>: <span class="hljs-number">0.7</span>
+    }
+  ]
+}
+</div></code></pre>
+<h3 id="animaljson">animal.json</h3>
+<p>Another rule that is designed to recognize if an animal is tiger or lion.</p>
+<h2 id="transcript">Transcript</h2>
+<h3 id="determine-organism">Determine Organism</h3>
+<pre class="hljs"><code><div>/usr/bin/python3 /Users/zeningc/Desktop/Project/EMYCIN/run.py
+Loading context, parameter, and rules from ./organism.json...
+Loading done successfully
+Ready to load the json...
+Json loaded successfully
+Ready to create contexts...
+Contexts created successfully
+Ready to create parameters...
+Parameters created successfully
+Ready to create rules...
+Parameters created successfully
+Executing begins, type HELP for help
+What is the name of patient? alex
+What is the sex of patient? ?
+the allowed values of sex are ['M', 'F']
+What is the sex of patient? M
+What is the age of patient? 22
+What is the site of culture? blood
+What is the days-old of culture? 3
+What is the identity of organism? unknown
+What is the gram of organism? why
+Why is the value of gram being asked for?
+It is known that:
+site culture = blood
+Therefore, 
+RULE 0: IF site culture = blood AND
+	gram organism = neg AND
+	morphology organism = rod AND
+	burn patient = serious THEN
+ (0.4)
+ identity organism = pseudomonas
+
+What is the gram of organism? ?
+the allowed values of gram are ['acid-fast', 'pos', 'neg']
+What is the gram of organism? neg
+What is the morphology of organism? rod
+What is the burn of patient? serious
+What is the aerobicity of organism? ?
+the allowed values of aerobicity are ['aerobic', 'anaerobic']
+What is the aerobicity of organism? aerobic
+What is the compromised-host of patient? true
+Findings for organism:
+identity: enterobacteriaceae 0.8, pseudomonas 0.76
+
+Process finished with exit code 0
+</div></code></pre>
+<h3 id="determine-animal">Determine Animal</h3>
+<pre class="hljs"><code><div>/usr/bin/python3 /Users/zeningc/Desktop/Project/EMYCIN/run.py --config ./animal.json
+Loading context, parameter, and rules from ./animal.json...
+Loading done successfully
+Ready to load the json...
+Json loaded successfully
+Ready to create contexts...
+Contexts created successfully
+Ready to create parameters...
+Parameters created successfully
+Ready to create rules...
+Parameters created successfully
+Executing begins, type HELP for help
+What is the size of animal? ?
+the allowed values of size are ['large', 'medium']
+What is the size of animal? large
+What is the color of animal? ?
+the allowed values of color are ['orange', 'yellow']
+What is the color of animal? orange
+What is the stripes of animal? why
+Why is the value of stripes being asked for?
+stripes is one of the initial parameters.
+What is the stripes of animal? ?
+the allowed values of stripes are ['yes', 'no']
+What is the stripes of animal? yes
+What is the mane of animal? why
+Why is the value of mane being asked for?
+mane is one of the initial parameters.
+What is the mane of animal? true
+Invalid response. Type ? to see legal ones.
+What is the mane of animal? ?
+the allowed values of mane are ['yes', 'no']
+What is the mane of animal? yes
+Findings for identification:
+identity: tiger 0.8
+
+Process finished with exit code 0
+</div></code></pre>
+<h2 id="reference">Reference</h2>
+<p>[1]. Shortliffe, E. H., Davis, R., Axline, S. G., Buchanan, B. G., Green, C. C., Cohen, S. N., &amp; Jacobsen, S. J. (1975). Computer-based consultation in clinical therapeutics: explanation and rule acquisition capabilities of the MYCIN system. Computers and biomedical research, 8(4), 303-320.<br>
+[2]. Norvig, P. (1992). Paradigms of artificial intelligence programming: case studies in Common Lisp. Morgan Kaufmann.<br>
+[3] <a href="https://dhconnelly.com/paip-python/docs/paip/emycin.html#:~:text=Emycin%20is%20an%20expert%20system,non%2Dexpert%20users%20solve%20problems.">EMYCIN</a></p>
+
+</body>
+</html>

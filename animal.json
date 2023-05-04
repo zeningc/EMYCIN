@@ -1,0 +1,216 @@
+{
+  "contexts": [
+    {
+      "name": "animal",
+      "initial_data": [
+        "size",
+        "color",
+        "stripes",
+        "mane"
+      ]
+    },
+    {
+      "name": "identification",
+      "goals": [
+        "identity"
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "size",
+      "ctx_name": "animal",
+      "allowed_values": [
+        "large",
+        "medium"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "color",
+      "ctx_name": "animal",
+      "allowed_values": [
+        "orange",
+        "yellow"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "stripes",
+      "ctx_name": "animal",
+      "allowed_values": [
+        "yes",
+        "no"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "mane",
+      "ctx_name": "animal",
+      "allowed_values": [
+        "yes",
+        "no"
+      ],
+      "ask_first": true
+    },
+    {
+      "name": "identity",
+      "ctx_name": "identification",
+      "allowed_values": [
+        "lion",
+        "tiger"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "conditions": [
+        [
+          "size",
+          "animal",
+          "=",
+          "large"
+        ],
+        [
+          "color",
+          "animal",
+          "=",
+          "orange"
+        ],
+        [
+          "stripes",
+          "animal",
+          "=",
+          "no"
+        ],
+        [
+          "mane",
+          "animal",
+          "=",
+          "yes"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "identification",
+          "=",
+          "lion"
+        ]
+      ],
+      "cf": 0.9
+    },
+    {
+      "conditions": [
+        [
+          "size",
+          "animal",
+          "=",
+          "large"
+        ],
+        [
+          "color",
+          "animal",
+          "=",
+          "orange"
+        ],
+        [
+          "stripes",
+          "animal",
+          "=",
+          "yes"
+        ],
+        [
+          "mane",
+          "animal",
+          "=",
+          "yes"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "identification",
+          "=",
+          "tiger"
+        ]
+      ],
+      "cf": 0.8
+    },
+    {
+      "conditions": [
+        [
+          "size",
+          "animal",
+          "=",
+          "medium"
+        ],
+        [
+          "color",
+          "animal",
+          "=",
+          "yellow"
+        ],
+        [
+          "stripes",
+          "animal",
+          "=",
+          "yes"
+        ],
+        [
+          "mane",
+          "animal",
+          "=",
+          "no"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "identification",
+          "=",
+          "tiger"
+        ]
+      ],
+      "cf": 0.7
+    },
+    {
+      "conditions": [
+        [
+          "size",
+          "animal",
+          "=",
+          "medium"
+        ],
+        [
+          "color",
+          "animal",
+          "=",
+          "orange"
+        ],
+        [
+          "stripes",
+          "animal",
+          "=",
+          "yes"
+        ],
+        [
+          "mane",
+          "animal",
+          "=",
+          "no"
+        ]
+      ],
+      "conclusions": [
+        [
+          "identity",
+          "identification",
+          "=",
+          "tiger"
+        ]
+      ],
+      "cf": 0.6
+    }
+  ]
+}
+
